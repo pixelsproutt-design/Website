@@ -10,7 +10,7 @@ function handleStubClick(event: React.MouseEvent<HTMLAnchorElement>) {
   event.preventDefault();
 }
 
-export function Navbar({ logoRef }: { logoRef: React.RefObject<HTMLDivElement | null> }) {
+export function Navbar() {
   const { openModal } = useQuoteModal();
   const [scrolled, setScrolled] = useState(false);
 
@@ -30,7 +30,7 @@ export function Navbar({ logoRef }: { logoRef: React.RefObject<HTMLDivElement | 
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <div ref={logoRef} className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Image
             src="/logo-full.png"
             alt="Pixel Sprout"
