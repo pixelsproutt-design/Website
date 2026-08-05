@@ -30,16 +30,25 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <div className="flex items-center gap-2">
+        <a href="#top" className="flex items-center gap-2.5" aria-label="Pixel Sprout home">
           <Image
-            src="/logo-full.png"
-            alt="Pixel Sprout"
-            width={160}
-            height={32}
-            className={`h-8 w-auto object-contain sm:h-9 ${scrolled ? '' : 'brightness-0 invert'}`}
+            src="/logo-icon.png"
+            alt=""
+            width={44}
+            height={44}
+            className={`h-10 w-10 shrink-0 object-contain sm:h-11 sm:w-11 ${
+              scrolled ? '' : 'brightness-0 invert drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]'
+            }`}
             priority
           />
-        </div>
+          <span
+            className={`font-heading text-sm font-semibold leading-none tracking-wide sm:text-[0.9375rem] ${
+              scrolled ? 'text-deep-sprout' : 'text-loam drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]'
+            }`}
+          >
+            Pixel Sprout
+          </span>
+        </a>
         <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
           {NAV_LINKS.map((link) => (
             <a
