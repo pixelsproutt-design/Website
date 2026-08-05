@@ -35,6 +35,10 @@ function ParticleSwarm() {
   const geometry = useMemo(() => new THREE.TetrahedronGeometry(0.25), []);
 
   const PARAMS = useMemo(() => ({ speed: 0.4, chaos: 20, coreSize: 10 }), []);
+  const outerColor = useMemo(() => new THREE.Color('#A1BAB1'), []);
+  const midColor = useMemo(() => new THREE.Color('#8FBE82'), []);
+  const innerColor = useMemo(() => new THREE.Color('#4FAF6D'), []);
+  const coreColor = useMemo(() => new THREE.Color('#D6A85F'), []);
 
   useFrame((state) => {
     const mesh = meshRef.current;
@@ -68,12 +72,14 @@ function ParticleSwarm() {
 
       target.set(x, y, z);
 
-      const hue = 0.55 + 0.25 * progress;
-      const saturation = 0.8 + 0.2 * progress;
-      const corePulse = progress > 0.95 ? Math.sin(time * 10.0) * 0.3 : 0.0;
-      const lightness = 0.2 + 0.6 * progress + corePulse;
-
-      pColor.setHSL(hue, saturation, Math.max(0.0, Math.min(1.0, lightness)));
+      const corePulse = progress > 0.95 ? Math.sin(time * 10.0) * 0.35 : 0.0;
+      if (progress < 0.45) {
+        pColor.copy(outerColor).lerp(midColor, progress / 0.45);
+      } else if (progress < 0.85) {
+        pColor.copy(midColor).lerp(innerColor, (progress - 0.45) / 0.4);
+      } else {
+        pColor.copy(innerColor).lerp(coreColor, (progress - 0.85) / 0.15 + corePulse);
+      }
 
       positions[i].lerp(target, 0.1);
       dummy.position.copy(positions[i]);
@@ -91,14 +97,14 @@ function ParticleSwarm() {
 
 export default function HeroParticleBackground() {
   return (
-    <div className="pointer-events-none absolute inset-0 bg-black" aria-hidden="true">
+    <div className="pointer-events-none absolute inset-0 bg-[#1a2420]" aria-hidden="true">
       <Canvas
         className="h-full w-full"
         camera={{ position: [0, 0, 100], fov: 60 }}
         gl={{ antialias: true, alpha: false }}
         dpr={[1, 1.5]}
       >
-        <fog attach="fog" args={['#000000', 80, 200]} />
+        <fog attach="fog" args={['#1a2420', 80, 200]} />
         <ParticleSwarm />
         <OrbitControls
           autoRotate
@@ -114,7 +120,7 @@ export default function HeroParticleBackground() {
           })}
         </Effects>
       </Canvas>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-loam" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1a2420]/30 via-transparent to-loam" />
     </div>
   );
 }

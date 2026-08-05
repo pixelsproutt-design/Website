@@ -273,7 +273,7 @@ function HomepageContent() {
           className="pointer-events-none fixed inset-x-4 top-[42%] z-20 mx-auto max-w-4xl -translate-y-1/2 text-center"
         >
           <h1 className="font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
-            <FlipText loop={false} duration={1.4} delay={0.35}>
+            <FlipText loop duration={2.2} delay={0.2}>
               We Grow Your Business Into a Tree
             </FlipText>
           </h1>
