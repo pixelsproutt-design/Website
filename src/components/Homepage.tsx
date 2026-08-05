@@ -1,9 +1,11 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FlipText } from '@/components/FlipText';
 import { Navbar } from '@/components/Navbar';
 import { QuoteModal } from '@/components/QuoteModal';
 import {
@@ -13,6 +15,11 @@ import {
   SproutLogoIcon,
 } from '@/components/icons/PlantIcons';
 import { QuoteModalProvider, useQuoteModal } from '@/context/QuoteModalContext';
+
+const HeroParticleBackground = dynamic(
+  () => import('@/components/HeroParticleBackground'),
+  { ssr: false },
+);
 
 const FOOTER_LINKS = [
   'Services',
@@ -257,16 +264,20 @@ function HomepageContent() {
       <QuoteModal />
 
       <main>
-        <section className="relative min-h-screen bg-loam" aria-hidden="true" />
+        <section className="relative min-h-screen overflow-hidden bg-black">
+          <HeroParticleBackground />
+        </section>
 
         <div
           ref={heroCopyRef}
-          className="pointer-events-none fixed inset-x-4 top-[42%] z-20 mx-auto max-w-3xl -translate-y-1/2 text-center"
+          className="pointer-events-none fixed inset-x-4 top-[42%] z-20 mx-auto max-w-4xl -translate-y-1/2 text-center"
         >
-          <h1 className="font-heading text-4xl font-bold leading-tight text-deep-sprout sm:text-5xl md:text-6xl">
-            We Grow Your Business Into a Tree
+          <h1 className="font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl">
+            <FlipText loop={false} duration={1.4} delay={0.35}>
+              We Grow Your Business Into a Tree
+            </FlipText>
           </h1>
-          <p className="mt-4 text-lg text-deep-sprout/75 sm:text-xl">
+          <p className="mt-6 text-lg text-white/80 sm:text-xl">
             A design and build studio that helps ideas take root and grow.
           </p>
         </div>

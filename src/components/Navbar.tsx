@@ -36,7 +36,7 @@ export function Navbar({ logoRef }: { logoRef: React.RefObject<HTMLDivElement | 
             alt="Pixel Sprout"
             width={160}
             height={32}
-            className="h-8 w-auto object-contain sm:h-9"
+            className={`h-8 w-auto object-contain sm:h-9 ${scrolled ? '' : 'brightness-0 invert'}`}
             priority
           />
         </div>
@@ -46,7 +46,11 @@ export function Navbar({ logoRef }: { logoRef: React.RefObject<HTMLDivElement | 
               key={link}
               href="#"
               onClick={handleStubClick}
-              className="text-sm text-deep-sprout/75 transition hover:text-deep-sprout"
+              className={`text-sm transition ${
+                scrolled
+                  ? 'text-deep-sprout/75 hover:text-deep-sprout'
+                  : 'text-loam/85 hover:text-loam'
+              }`}
             >
               {link}
             </a>
